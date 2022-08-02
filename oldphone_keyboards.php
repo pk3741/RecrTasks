@@ -24,12 +24,6 @@ class OldphoneKeyboard
         $this->keyboard[9]="wxyz";
     }
 
-    function getKeyboard()
-    {
-        print($this->keyboard);
-        return $keyboard;
-    }
-
     function convertToNumeric($input)
     {
         if(!is_string($input)) return 0;
@@ -39,7 +33,7 @@ class OldphoneKeyboard
         for($i = 0; $i<strlen($input); $i++)
         {
             $letter = $input[$i];
-            for($j=0; $j<sizeof($this->keyboard); $j++)
+            for($j=0; $j<sizeof(($this->keyboard)); $j++)
             {
                 if(str_contains($this->keyboard[$j], $letter))
                 {
@@ -56,13 +50,20 @@ class OldphoneKeyboard
 
     function convertToString($input)
     {
-        
+        $output = "";
+        $input = explode(",", $input);
+        for($i=0; $i<sizeof($input); $i++)
+        {
+            $number = substr($input[$i],0,1);
+            $output.=$this->keyboard[$number][strlen($input[$i])-1];
+        }
+        return $output;
     }
 
 }
 $opk = new OldPhoneKeyboard();
-$test = $opk->convertToNumeric("Ela nie ma kota");
-print($test);
-
-
+$test1 = $opk->convertToNumeric("Ela nie ma kota");
+print($test1."<br />");
+$test2 = $opk->convertToString("5,2,22,555,33,222,9999,66,444,55");
+print($test2);
 ?>
