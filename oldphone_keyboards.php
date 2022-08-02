@@ -1,4 +1,6 @@
 <?php
+
+// php version <8.0
 if (!function_exists('str_contains')) {
     function str_contains(string $haystack, string $needle): bool
     {
@@ -12,6 +14,7 @@ class OldphoneKeyboard
 
     function __construct()
     {
+        //keyboard value assignment
         $this->keyboard[0]=" ";
         $this->keyboard[1]=",./?";
         $this->keyboard[2]="abc";
@@ -24,6 +27,12 @@ class OldphoneKeyboard
         $this->keyboard[9]="wxyz";
     }
 
+    /**
+    * Function converting text to old phone numeric keyboards format
+    *
+    * @param string $text The text to convert
+    * @return string Return old phones numer keyboards format
+    */
     function convertToNumeric($input)
     {
         if(!is_string($input)) return 0;
@@ -48,8 +57,14 @@ class OldphoneKeyboard
         return $output;
     }
 
+    /**
+    * Function converting old phone numeric keyboards format to text
+    * @param string $text The text in old phone numeric keyboards format to convert
+    * @return string Return text hidden under the input    
+    */
     function convertToString($input)
     {
+        if(!is_string($input)) return 0;
         $output = "";
         $input = explode(",", $input);
         for($i=0; $i<sizeof($input); $i++)
@@ -61,9 +76,11 @@ class OldphoneKeyboard
     }
 
 }
+
 $opk = new OldPhoneKeyboard();
 $test1 = $opk->convertToNumeric("Ela nie ma kota");
 print($test1."<br />");
 $test2 = $opk->convertToString("5,2,22,555,33,222,9999,66,444,55");
 print($test2);
+
 ?>
